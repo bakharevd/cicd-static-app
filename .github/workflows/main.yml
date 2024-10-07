@@ -1,0 +1,13 @@
+name: cicd-static-app
+
+on:
+  push:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: super-linter/super-linter@v7.1.0
