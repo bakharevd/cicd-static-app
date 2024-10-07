@@ -8,3 +8,4 @@ document.getElementById('show-more').addEventListener('click', function() {
         this.textContent = 'Show More';
     }
 });
+
