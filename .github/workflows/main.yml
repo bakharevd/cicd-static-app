@@ -22,8 +22,10 @@ jobs:
       run: npm install
 
     - name: Run linters
+      uses: mathiasvr/command-output@v1
       id: selint
-      run: npx eslint 'script.js' || exit 1
+      with:
+        run: npx eslint 'script.js' || exit 1
         
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
