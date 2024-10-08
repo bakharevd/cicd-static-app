@@ -25,12 +25,7 @@ jobs:
       id: selint
       run: |
         set -e
-        npx eslint 'script.js' --max-warnings 0 | tee lint-output.txt
-        LINT_EXIT_CODE=$?
-        if [ "$LINT_EXIT_CODE" -ne 0 ]; then
-          echo "Linter failed with exit code $LINT_EXIT_CODE"
-          exit 1
-        fi
+        npx eslint 'script.js' --max-warnings 0 || exit 1
       
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
