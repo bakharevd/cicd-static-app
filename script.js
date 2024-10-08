@@ -7,4 +7,5 @@ document.getElementById('show-more').addEventListener('click', function() {
         extraContent.style.display = 'none';
         this.textContent = 'Show More';
     }
+    console.log('деплой');
 });
