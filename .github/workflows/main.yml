@@ -25,8 +25,17 @@ jobs:
       id: selint
       run: |
         set -e
-        output=$(npx eslint 'script.js' --max-warnings 0 2>&1)
-        echo "linter_output=$output" >> $GITHUB_ENV
+        output=$(npx eslint 'script.js' --max-warnings 0 2>&1) || true
+        echo "$output" > eslint_output.txt
+        if [[ "$output" == *"error"* ]]; then
+          echo "Linter failed with output:"
+          echo "$output"
+          echo "linter_output=$output" >> $GITHUB_ENV
+          exit 1
+        else
+          echo "Linter passed without errors."
+          echo "linter_output=$output" >> $GITHUB_ENV
+        fi
         
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
