@@ -1,8 +1,4 @@
 
-> cicd-static-app@1.0.0 lint
-> npx eslint 'script.js'
-
-
 /home/runner/work/cicd-static-app.github.io/cicd-static-app.github.io/script.js
   11:11  error  'ar' is assigned a value but never used  no-unused-vars
 
