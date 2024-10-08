@@ -25,12 +25,8 @@ jobs:
       id: selint
       run: |
         set -e
-        # Запускаем линтер и сохраняем вывод
-        output=$(npx eslint 'script.js' --max-warnings 0 2>&1) || echo "$output" > eslint_output.txt && exit 1
-        # Устанавливаем вывод как выходную переменную
-        echo "linter_output<<EOF" >> $GITHUB_ENV
-        echo "$output" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        output=$(npx eslint 'script.js' --max-warnings 0 2>&1)
+        echo "linter_output=$output" >> $GITHUB_ENV
         
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
