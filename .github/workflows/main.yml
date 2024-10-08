@@ -22,8 +22,24 @@ jobs:
       run: npm install
 
     - name: Run linters
+      id: selint
       run: npm run lint
       
+    - name: Send fail message to Telegram 
+      if: ${{ failure() }}
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          Failed ${{ GITHUB_JOB }}
+          ${{ github.actor }} created commit:
+          Commit message: ${{ github.event.commits[0].message }}
+          
+          Repository: ${{ github.repository }}
+          
+          ```${{join(steps.selint.outputs.*, '\n')}}```
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -31,3 +47,16 @@ jobs:
         publish_dir: .
         branch: gh-pages
         single-commit: true
+        
+    - name: Send success message to Telegram 
+      if: ${{ success() }}
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          Success ${{ GITHUB_JOB }}
+          ${{ github.actor }} created commit:
+          Commit message: ${{ github.event.commits[0].message }}
+          
+          Repository: ${{ github.repository }}
