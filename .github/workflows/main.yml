@@ -22,9 +22,11 @@ jobs:
       run: npm install
 
     - name: Run linters
+      uses: mathiasvr/command-output@v1
       id: selint
-      run: npm run lint
-      
+      with:
+        run: npx eslint 'script.js' || exit 1
+        
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
       uses: appleboy/telegram-action@master
@@ -32,15 +34,19 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Failed ${{ env.GITHUB_JOB }}
+          Failed ${{ github.job }}
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
           
           Repository: ${{ github.repository }}
           
-          ```${{join(steps.selint.outputs.*, '\n')}}```
+          Linter output:
+          ```
+          ${{ steps.selint.outputs.stdout }}
+          ```
 
     - name: Deploy to GitHub Pages
+      if: ${{ success() }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -55,7 +61,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Success ${{ env.GITHUB_JOB }}
+          Success ${{ github.job }}
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
           
