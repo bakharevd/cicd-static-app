@@ -23,7 +23,9 @@ jobs:
 
     - name: Run linters
       id: selint
-      run: npm run lint | tee lint-output.txt
+      run: |
+        set -e
+        npm run lint | tee lint-output.txt
       
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
@@ -46,6 +48,7 @@ jobs:
         linter_output: ${{ steps.selint.outputs.linter_output }}
 
     - name: Deploy to GitHub Pages
+      if: ${{ success() }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
