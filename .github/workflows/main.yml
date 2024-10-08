@@ -24,19 +24,7 @@ jobs:
     - name: Run linters
       id: selint
       run: |
-        set -e
-        # Запускаем линтер и сохраняем вывод
-        output=$(npx eslint 'script.js' --max-warnings 0 2>&1) || echo "Linter did not run properly."
-        echo "linter_output=$output" >> $GITHUB_ENV
-        
-        # Проверьте, произошла ли ошибка и завершите процесс с кодом 1
-        if [ -n "$output" ]; then
-          echo "$output"
-        fi
-        
-        if [[ "$output" == *"error"* ]]; then
-          exit 1
-        fi
+        npx eslint 'script.js' || exit 1
         
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
