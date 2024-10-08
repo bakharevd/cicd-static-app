@@ -25,7 +25,7 @@ jobs:
       id: selint
       run: |
         set -e
-        npm run lint | tee lint-output.txt
+        npx eslint 'script.js' --max-warnings 0 | tee lint-output.txt
       
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
