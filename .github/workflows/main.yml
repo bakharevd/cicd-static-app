@@ -23,8 +23,7 @@ jobs:
 
     - name: Run linters
       id: selint
-      run: |
-        npx eslint 'script.js' || exit 1
+      run: npx eslint 'script.js' || exit 1
         
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
@@ -41,7 +40,7 @@ jobs:
           
           Linter output:
           ```
-              ${{steps.selint.outputs.stdout}}
+          ${{ steps.selint.outputs.stdout }}
           ```
 
     - name: Deploy to GitHub Pages
