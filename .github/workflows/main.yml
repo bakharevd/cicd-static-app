@@ -23,7 +23,7 @@ jobs:
 
     - name: Run linters
       id: selint
-      run: npm run lint
+      run: npm run lint >> $GITHUB_OUTPUT
       
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
@@ -32,7 +32,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Failed ${{ GITHUB_JOB }}
+          Failed ${{ env.GITHUB_JOB }}
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
           
@@ -55,7 +55,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Success ${{ GITHUB_JOB }}
+          Success ${{ env.GITHUB_JOB }}
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
           
