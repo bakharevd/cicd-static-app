@@ -41,7 +41,7 @@ jobs:
           
           Linter output:
           ```
-              ${{steps.selint.outputs.stdout)}}
+              ${{steps.selint.outputs.stdout}}
           ```
 
     - name: Deploy to GitHub Pages
