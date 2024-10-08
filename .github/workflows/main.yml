@@ -2,13 +2,24 @@ name: cicd-static-app
 
 on:
   push:
-    branches: [main]
-
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  linter:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Super-Linter
-        uses: super-linter/super-linter@v7.1.0
+    - name: Checkout code
+      uses: actions/checkout@v4.2.1
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4.0.4
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run linters
+      run: npm run lint
