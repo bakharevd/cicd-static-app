@@ -8,4 +8,5 @@ document.getElementById('show-more').addEventListener('click', function() {
         this.textContent = 'Show More';
     }
     console.log('деплой');
+    const ar = 12;
 });
