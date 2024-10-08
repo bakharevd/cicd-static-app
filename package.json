@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Success: test success\"",
-    "lint": "npx eslint '*.bpnjs'"
+    "lint": "npx eslint 'script.js'"
   },
   "repository": {
     "type": "git",
