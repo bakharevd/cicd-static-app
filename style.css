@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.logo {
+    border-radius: 50%;
+    width: 100px;
+    height: auto;
+    animation: spin 5s infinite linear;
+}
+
+h1 {
+    animation: fadeInDown 1s ease-in-out;
+}
+
+#show-more {
+    transition: background-color 0.3s ease-in-out;
+}
+
+#show-more:hover {
+    background-color: #0056b3;
+}
+
+#extra-content {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
