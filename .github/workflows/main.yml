@@ -23,7 +23,7 @@ jobs:
 
     - name: Run linters
       id: selint
-      run: npm run lint >> $GITHUB_OUTPUT
+      run: npm run lint
       
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
