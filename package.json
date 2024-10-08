@@ -1,0 +1,25 @@
+{
+  "name": "cicd-static-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Success: test success\"",
+    "lint": "npx eslint '*.bpnjs'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bakharevd/cicd-static-app.github.io.git"
+  },
+  "author": "Bakharev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bakharevd/cicd-static-app.github.io/issues"
+  },
+  "homepage": "https://github.com/bakharevd/cicd-static-app.github.io#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.10.0"
+  }
+}
