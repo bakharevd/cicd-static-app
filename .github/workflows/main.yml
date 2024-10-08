@@ -23,7 +23,7 @@ jobs:
 
     - name: Run linters
       id: selint
-      run: npm run lint
+      run: npm run lint | tee lint-output.txt
       
     - name: Send fail message to Telegram 
       if: ${{ failure() }}
@@ -32,13 +32,18 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Failed ${{ env.GITHUB_JOB }}
+          Failed ${{ github.job }}
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
           
           Repository: ${{ github.repository }}
           
-          ```${{join(steps.selint.outputs.*, '\n')}}```
+          Linter output:
+          ```
+          ${{ steps.selint.outputs.linter_output }}
+          ```
+      env:
+        linter_output: ${{ steps.selint.outputs.linter_output }}
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
@@ -55,7 +60,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Success ${{ env.GITHUB_JOB }}
+          Success ${{ github.job }}
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
           
